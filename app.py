@@ -139,23 +139,24 @@ def main():
     # --- メイン画面 (ダッシュボード) ---
     df = load_data()
     
-    st.markdown("## 🎯 本日の記録")
-    today_str = datetime.date.today().strftime("%Y-%m-%d")
+    date_display = record_date.strftime("%Y/%m/%d")
+    st.markdown(f"## 🎯 {date_display}の記録")
+    target_date_str = record_date.strftime("%Y-%m-%d")
     
     if not df.empty:
-        today_df = df[df['Date'] == today_str]
+        target_df = df[df['Date'] == target_date_str]
     else:
-        today_df = pd.DataFrame()
+        target_df = pd.DataFrame()
         
-    if not today_df.empty:
+    if not target_df.empty:
         st.markdown("#### セット項目")
         cols = st.columns(3)
         col_idx = 0
         for k, (name, unit) in MULTI_FIELDS.items():
-            total = today_df[f"{k}_total"].sum()
+            total = target_df[f"{k}_total"].sum()
             if total > 0:
-                # 本日複数回送信した場合の対応
-                sets_list = [str(s) for s in today_df[f"{k}_sets"].dropna() if str(s).strip()]
+                # 複数回送信した場合の対応
+                sets_list = [str(s) for s in target_df[f"{k}_sets"].dropna() if str(s).strip()]
                 sets_display = " / ".join(sets_list)
                 with cols[col_idx % 3]:
                     st.metric(label=name, value=f"{total} {unit}", delta=f"内訳: [{sets_display}]", delta_color="off")
@@ -165,7 +166,7 @@ def main():
         cols2 = st.columns(4)
         col_idx2 = 0
         for k, (name, unit) in SINGLE_FIELDS.items():
-            total = today_df[k].sum()
+            total = target_df[k].sum()
             if total > 0:
                 with cols2[col_idx2 % 4]:
                     if unit == "h":
@@ -175,9 +176,9 @@ def main():
                 col_idx2 += 1
                 
         if col_idx == 0 and col_idx2 == 0:
-            st.info("本日の記録はありますが、全て0です。")
+            st.info(f"{date_display}の記録はありますが、全て0です。")
     else:
-        st.info("本日の記録はまだありません。左のメニューから入力してください。")
+        st.info(f"{date_display}の記録はまだありません。左のメニューから入力してください。")
         
     st.divider()
     
