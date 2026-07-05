@@ -54,7 +54,8 @@ def create_empty_df():
 def load_data():
     conn = st.connection("gsheets", type=GSheetsConnection)
     try:
-        df = conn.read(worksheet=WORKSHEET_NAME)
+        # ttl=0 を指定してキャッシュを無効化し、常に最新のデータを取得する
+        df = conn.read(worksheet=WORKSHEET_NAME, ttl=0)
         # 空のシートやNaNだけのシートの場合は空のDataFrameを返す
         if df is None or df.empty or df.dropna(how='all').empty:
             return create_empty_df()
