@@ -11,12 +11,13 @@ WORKSHEET_NAME = "Sheet1"
 
 # 各項目の定義（ラベル名と単位）
 MULTI_FIELDS = {
-    "Putter_1Y": ("パター 1ヤード", "球"),
-    "Putter_2Y": ("パター 2ヤード", "球"),
-    "Putter_3Y": ("パター 3ヤード", "球"),
+    "Putter_1Y": ("パター 1メートル", "球"),
+    "Putter_2Y": ("パター 2メートル", "球"),
+    "Putter_3Y": ("パター 3メートル", "球"),
     "Approach_5Y": ("ウレタンボールアプローチ 5ヤード", "球"),
     "Wall_Drill": ("壁ケツドリル", "回"),
     "Swing_Stick": ("素振り棒", "回"),
+    "Swing_Club": ("素振りクラブ", "回"),
 }
 
 SINGLE_FIELDS = {
@@ -182,7 +183,7 @@ def main():
         
     st.divider()
     
-    st.markdown("## 🏆 これまでの累計")
+    st.markdown("## 🏆 これまでの累計（2026/07/05～）")
     if not df.empty:
         st.markdown("#### セット項目")
         c_cols = st.columns(3)
