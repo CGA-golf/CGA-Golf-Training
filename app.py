@@ -60,6 +60,13 @@ def load_data():
         # 空のシートやNaNだけのシートの場合は空のDataFrameを返す
         if df is None or df.empty or df.dropna(how='all').empty:
             return create_empty_df()
+            
+        # 既存データに新しい項目（列）が含まれていない場合のエラー防止
+        expected_cols = create_empty_df().columns
+        for col in expected_cols:
+            if col not in df.columns:
+                df[col] = float('nan')
+                
         return df
     except Exception as e:
         # シートが存在しない、またはまだデータがない場合は空のDataFrameを作成
