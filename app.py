@@ -21,8 +21,8 @@ MULTI_FIELDS = {
 }
 
 SINGLE_FIELDS = {
-    "Indoor_Golf": ("インドアゴルフ", "h"),
-    "Driving_Range": ("打ちっぱなし", "h"),
+    "Indoor_Golf": ("インドアゴルフ", "球"),
+    "Driving_Range": ("打ちっぱなし", "球"),
     "Round_Half": ("ラウンド ハーフ", "回"),
     "Round_Full": ("ラウンド フル", "回"),
 }
